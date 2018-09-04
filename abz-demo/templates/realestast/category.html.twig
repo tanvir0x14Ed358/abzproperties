@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+    {% block title %}
+		<title>ABZ Properties - Projects</title>
+    {% endblock %}
+
+{% block bodymain %}
+
+		<!-- Begin Main -->
+		<div role="main" class="main pgl-bg-grey">
+			<!-- Begin page top -->
+			<section class="page-top">
+				<div class="container">
+					<div class="page-top-in">
+						<h2><span>{{ category }}</span></h2>
+					</div>
+				</div>
+			</section>
+			<!-- End page top -->
+
+
+			<!-- Begin Properties -->
+			<section class="pgl-properties pgl-bg-grey">
+				<div class="container">
+					
+					<div class="properties-full properties-listing properties-listfull">
+
+                        {% for property in properties %}
+						<div class="pgl-property animation">
+							<div class="row">
+								<div class="col-sm-6 col-md-4">
+									<div class="property-thumb-info-image">
+										<a href="{{ path('property_details', {'id': property.id}) }}">
+										<img alt="" class="img-responsive" src="{{ asset( 'images/properties/') }}{{ property.thumb }}">
+										</a>
+										<span class="property-thumb-info-label">
+											<span class="label price">{{ property.thumb_info| default("") }}</span>
+										</span>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-8">
+									<div class="property-thumb-info">
+
+										<div class="property-thumb-info-content">
+											<h3><a href="{{ path('property_details', {'id': property.id}) }}">{{ property.title }}</a></h3>
+											<address>{{ property.location }}</address>
+											<p>{{ property.description }}</p>
+										</div>
+										<div class="amenities clearfix">
+											<ul class="pull-left">
+												<li><strong>Area:</strong> {{ property.area }}</li>
+											</ul>
+											<ul class="pull-right">
+												<li><i class="icons icon-bedroom"></i> {{ property.bed }}</li>
+												<li><i class="icons icon-bathroom"></i> {{ property.bath }}</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+                        {% endfor %}
+
+					</div>
+				</div>
+			</section>
+			<!-- End Properties -->
+
+		</div>
+		<!-- End Main -->
+{% endblock %}

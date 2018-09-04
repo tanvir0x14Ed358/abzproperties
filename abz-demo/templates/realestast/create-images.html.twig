@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+    {% block title %}
+        <title>ABZ Properties - Project Images</title>
+    {% endblock %}
+
+{% block bodymain %}
+		
+		<!-- Begin Main -->
+		<div role="main" class="main pgl-bg-grey">
+			
+			
+			<!-- Begin content with sidebar -->
+			<div class="container">
+                            
+				<div class="row">
+					<div class="col-md-7 content">
+						<h2>Create Project Images</h2>
+						<div class="contact">
+							{{ form_start(form) }}
+                                                        {{ form_widget(form) }}
+                                                        {{ form_end(form) }}
+						</div>
+						
+					</div>
+					<div class="col-md-3 sidebar">
+						
+
+						
+					</div>
+				</div>	
+                                                
+                                {% for image in projectImages %}
+                                <div class="row" style="margin-bottom: 30px;">
+					<div class="col-md-2 content">
+                                            <img alt="" class="img-responsive" src="{{ asset( 'images/properties/') }}{{ image.image }}">
+                                        </div>
+                                        <div class="col-md-4 content">
+                                            <h3>{{ image.getProperty().getTitle }}</h3>
+                                        </div>
+                                        <div class="col-md-2 content">
+                                            <a class="btn btn-default btn-sm" href="{{ path('delete-image', {'id': image.id}) }}">Delete</a>
+                                        </div>
+                                        
+                                </div>
+                                {% endfor %}
+			</div>
+			<!-- End content with sidebar -->
+			
+		</div>
+		<!-- End Main -->
+{% endblock %}
+
+
+

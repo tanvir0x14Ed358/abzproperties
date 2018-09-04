@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+    {% block title %}
+        <title>ABZ Properties - Edit Project</title>
+    {% endblock %}
+
+{% block bodymain %}
+		
+		<!-- Begin Main -->
+		<div role="main" class="main pgl-bg-grey">
+			
+			
+			<!-- Begin content with sidebar -->
+			<div class="container">
+                            
+				<div class="row">
+					<div class="col-md-7 content">
+						<h2>Edit Project</h2>
+						<div class="contact">
+							{{ form_start(form) }}
+                                                        {{ form_widget(form) }}
+                                                        {{ form_end(form) }}
+						</div>
+						
+					</div>
+					<div class="col-md-3 sidebar">
+						
+
+						
+					</div>
+				</div>	
+			</div>
+			<!-- End content with sidebar -->
+			
+		</div>
+		<!-- End Main -->
+{% endblock %}
+
+
+

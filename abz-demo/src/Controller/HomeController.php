@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController {
 
     /**
-     * @Route("/project/edit/{id}", name="edit-project")
+     * @Route("/admin/project/edit/{id}", name="edit-project")
      */
     public function editProject(Request $request, $id) {
         $entityManager = $this->getDoctrine()->getManager();
@@ -51,7 +51,7 @@ class HomeController extends AbstractController {
     }
     
     /**
-     * @Route("/project/delete/{id}", name="delete-project")
+     * @Route("/admin/project/delete/{id}", name="delete-project")
      */
     public function deleteProject($id) {
         $entityManager = $this->getDoctrine()->getManager();
@@ -70,7 +70,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/image/delete/{id}", name="delete-image")
+     * @Route("/admin/image/delete/{id}", name="delete-image")
      */
     public function deleteImage($id) {
         $entityManager = $this->getDoctrine()->getManager();
@@ -89,7 +89,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/slide/delete/{id}", name="delete-slide")
+     * @Route("/admin/slide/delete/{id}", name="delete-slide")
      */
     public function deleteSlide($id) {
         $entityManager = $this->getDoctrine()->getManager();
@@ -108,7 +108,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/create-slides", name="create-slides")
+     * @Route("/admin/create-slides", name="create-slides")
      */
     public function createSlides(Request $request) {
         // creates a task and gives it some dummy data for this example
@@ -157,7 +157,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/create-images", name="create-images")
+     * @Route("/admin/create-images", name="create-images")
      */
     public function createImages(Request $request) {
         // creates a task and gives it some dummy data for this example
@@ -206,7 +206,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/create-project", name="create-project")
+     * @Route("/admin/create-project", name="create-project")
      */
     public function createProject(Request $request) {
         // creates a task and gives it some dummy data for this example
@@ -252,10 +252,6 @@ class HomeController extends AbstractController {
      * @Route("/home", name="home_page")
      */
     public function index() {
-        
-        $repository = $this->getDoctrine()->getRepository(HomeImages::class);
-        $home_projects = $repository->findAll();
-        
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $featured_projects = $repository->findBy(
             ['featured' => true]
@@ -263,7 +259,6 @@ class HomeController extends AbstractController {
         
 
         return $this->render('realestast/index.html.twig', array(
-                    'home_projects' => $home_projects,
                     'featured_projects' => $featured_projects,
         ));
     }
@@ -285,9 +280,10 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/admin-home", name="admin-home")
+     * @Route("/admin/admin-home", name="admin-home")
      */
     public function admin() {
+        
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $properties = $repository->findAll();
         

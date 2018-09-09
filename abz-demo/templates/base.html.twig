@@ -74,7 +74,12 @@
                         </li>
                         <li><a href="{{ path('landowners') }}">Landowners</a></li>
                         <li><a href="{{ path('contact-us') }}">Contact Us</a></li>
-{#                        <li><a href="{{ path('admin-home') }}">Admin</a></li>#}
+                        {#{% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('admin-home') }}">Admin</a></li>
+                        {% else %}    
+                            <li><a href="{{ path('admin-home') }}">Login</a></li>
+                        {% endif %}#}
+                        
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

@@ -10,26 +10,32 @@
 		<div role="main" class="main">
 			<!-- Begin Main Slide -->
 			<section class="main-slide">
-				<div id="owl-main-slide" class="owl-carousel pgl-main-slide" data-plugin-options='{"autoPlay": true}'>
+				<div id="owl-main-slide" class="owl-carousel pgl-main-slide" data-plugin-options='{"autoPlay": false}'>
 
-                    {% for project in home_projects %}
-					<div class="item" id="item1"><img src="{{ asset('images/slides/') }}{{ project.image }}" alt="Photo" class="img-responsive">
+                    
+					<div class="item" id="item1"><img src="{{ asset('images/slides/sliderC1.jpg') }}" alt="Photo" class="img-responsive">
 						<div class="item-caption">
 							<div class="container">
 								<div class="property-info">
 									<span class="property-thumb-info-label">
-										<span class="label price">{{ project.property.thumbInfo | default('Dhaka, Bangladesh') }}</span>
-										<span class="label"><a href="{{ path('property_details', {'id': project.property.id}) }}" class="btn-more">More Detail</a></span>
+										<span class="label price">Builders With Distinction</span>
+										<span class="label"><a href="{{ path('property_projects', {'type': 'ongoing'}) }}" class="btn-more">Pledges a Comfortable and Secure Living</a></span>
 									</span>
 									<div class="property-thumb-info-content">
-										<h2><a href="property-detail.html">{{ project.property.title }}</a></h2>
-										<p>{{ project.property.description }}</p>
+										<h2><a href="{{ path('property_projects', {'type': 'ongoing'}) }}">Welcome to ABZ Properties Ltd.</a></h2>
+										<p>Whether you are a first time  home buyer or  a seasoned veterian, the selection of right asset  stands there as one of the most exciting, yet potentially stressful   experiences in life .To achieve optimal results, aligning oneself with the competent property hub is a must.
+
+<br><br><strong>ABZ Properties Ltd</strong>, a builder with distinction always strives to provide its stakeholders with the best returns of their investment. Whatever you invest here - the land or cash - yours investment will always be back with premium added value. 
+
+<br><br>Feel safe at ABZPL and step into our world with full confidence.
+
+</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-                    {% endfor %}
+                    
 
 				</div>
 			</section>
@@ -129,8 +135,13 @@
 							</div>
 						</div>
 						<div class="col-md-4 animation about-item">
-							<h2>Our Directors</h2>
-							<div class="owl-carousel pgl-bg-dark pgl-testimonial" data-plugin-options='{"items": 1, "pagination": false, "autoHeight": true}'>
+                                                    <h2>Our Strength</h2>
+							<p><img src="{{ asset('images/content/demo-2.jpg') }}" alt="" class="img-responsive"></p>
+							<p>SKILLED PROFESSIONALS</p>
+                                                        <p>QUALITY & SERVICE COMMITMENTS</p>
+                                                        <p>EFFECTIVE MANAGEMENT</p>
+{#							<h2>Our Directors</h2>#}
+							{#<div class="owl-carousel pgl-bg-dark pgl-testimonial" data-plugin-options='{"items": 1, "pagination": false, "autoHeight": true}'>
 								<div class="col-md-12">
 									<div class="testimonial-author">
 										<div class="img-thumbnail-small img-circle">
@@ -159,7 +170,7 @@
 									</blockquote>
 								</div>
                                                                 
-							</div>
+							</div>#}
 						</div>
 					</div>
 				</div>

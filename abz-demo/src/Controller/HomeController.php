@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +23,7 @@ class HomeController extends AbstractController {
      */
     public function editProject(Request $request, $id) {
         $entityManager = $this->getDoctrine()->getManager();
-        $project = $entityManager->getRepository(PropertyDetails::class)->find($id);        
+        $project = $entityManager->getRepository(PropertyDetails::class)->find($id);
         $form = $this->createForm(PropertyDetailsType::class, $project);
         $form->handleRequest($request);
 
@@ -49,7 +48,33 @@ class HomeController extends AbstractController {
                     'form' => $form->createView(),
         ));
     }
-    
+
+    /**
+     * @Route("/contact-mailer", name="contact-mailer")
+     */
+    public function contactMailer(Request $request, \Swift_Mailer $mailer) {
+        
+        $message = (new \Swift_Message($request->request->get('subject')))
+                ->setFrom($request->request->get('customer_mail'), $request->request->get('name'))
+                ->setTo('alam1674@gmail.com')
+                ->setBody(
+                $this->renderView(
+                    'realestast/contact-email.html.twig', 
+                    array(
+                        'subject' => $request->request->get('subject'),
+                        'name' => $request->request->get('name'),
+                        'customer_mail' => $request->request->get('customer_mail'),
+                        'comments' => $request->request->get('comments'),
+                        )
+                ), 'text/html'
+                )
+        ;
+
+        $mailer->send($message);
+
+        return $this->redirectToRoute('contact-us');
+    }
+
     /**
      * @Route("/admin/project/delete/{id}", name="delete-project")
      */
@@ -62,7 +87,7 @@ class HomeController extends AbstractController {
                     'No project found for id ' . $id
             );
         }
-        
+
         $entityManager->remove($project);
         $entityManager->flush();
 
@@ -100,7 +125,7 @@ class HomeController extends AbstractController {
                     'No image found for id ' . $id
             );
         }
-        
+
         $entityManager->remove($image);
         $entityManager->flush();
 
@@ -215,9 +240,9 @@ class HomeController extends AbstractController {
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // $file stores the uploaded image file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */            
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
             $file = $form->get('thumb')->getData();
 
             $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
@@ -254,9 +279,9 @@ class HomeController extends AbstractController {
     public function index() {
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $featured_projects = $repository->findBy(
-            ['featured' => true]
+                ['featured' => true]
         );
-        
+
 
         return $this->render('realestast/index.html.twig', array(
                     'featured_projects' => $featured_projects,
@@ -269,9 +294,9 @@ class HomeController extends AbstractController {
     public function projects($type) {
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $properties = $repository->findBy(
-            ['category' => strtolower($type)]
+                ['category' => strtolower($type)]
         );
-        
+
         $category = $type;
 
         return $this->render('realestast/category.html.twig', array(
@@ -283,10 +308,10 @@ class HomeController extends AbstractController {
      * @Route("/admin/admin-home", name="admin-home")
      */
     public function admin() {
-        
+
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $properties = $repository->findAll();
-        
+
         return $this->render('realestast/admin-home.html.twig', array(
                     'properties' => $properties
         ));
@@ -296,10 +321,10 @@ class HomeController extends AbstractController {
      * @Route("/details/{id}", name="property_details")
      */
     public function details($id) {
-        
+
         $repository = $this->getDoctrine()->getRepository(PropertyDetails::class);
         $property = $repository->find($id);
-        
+
         //$property_images = $property->getPropertyImages();
 
         return $this->render('realestast/property-detail.html.twig', array('property' => $property));
